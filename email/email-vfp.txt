@@ -1,0 +1,102 @@
+Email w Visualforce ->
+
+Apex Controller class:
+public class EmailController {
+
+    public String toAddress {get; set;}
+    public String subjectText {get; set;}
+    public String bodyText {get; set;}
+
+    public String message {get; set;}
+
+    public void sendMail() {
+
+        // Validation
+        if(toAddress == null ||
+           !toAddress.contains('@')) {
+
+            message = 'Invalid Email Address';
+            return;
+        }
+
+        Messaging.SingleEmailMessage mail =
+        new Messaging.SingleEmailMessage();
+
+        mail.setToAddresses(
+            new String[]{toAddress}
+        );
+
+        mail.setSubject(subjectText);
+
+        mail.setPlainTextBody(bodyText);
+
+        Messaging.sendEmail(
+            new Messaging.SingleEmailMessage[]{mail}
+        );
+
+        message = 'Email Sent Successfully';
+    }
+}
+
+VFP page: 
+<apex:page controller="EmailController">
+
+    <apex:form>
+
+        <apex:pageBlock title="Email Notification System">
+
+            <apex:pageBlockSection columns="1">
+
+                <apex:inputText
+                    value="{!toAddress}"
+                    label="Recipient Email"/>
+
+                <apex:inputText
+                    value="{!subjectText}"
+                    label="Subject"/>
+
+                <apex:inputTextarea
+                    value="{!bodyText}"
+                    label="Message"/>
+
+            </apex:pageBlockSection>
+
+            <br/>
+
+            <apex:commandButton
+                value="Send Email"
+                action="{!sendMail}"
+                style="
+                    background:#0176d3;
+                    color:white;
+                    border:none;
+                    padding:8px 18px;
+                    font-size:14px;
+                    border-radius:5px;
+                    cursor:pointer;
+                "/>
+
+            <br/><br/>
+
+            <apex:outputPanel rendered="{!NOT(ISBLANK(message))}">
+
+                <div style="
+                    background:#f4f6f9;
+                    padding:10px;
+                    border-radius:5px;
+                    font-weight:bold;
+                    color:green;
+                    width:300px;
+                ">
+
+                    {!message}
+
+                </div>
+
+            </apex:outputPanel>
+
+        </apex:pageBlock>
+
+    </apex:form>
+
+</apex:page>

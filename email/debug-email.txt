@@ -1,0 +1,40 @@
+public class EmailSender {
+
+    public static void sendMail() {
+
+        Messaging.SingleEmailMessage mail =
+        new Messaging.SingleEmailMessage();
+
+        mail.setToAddresses(
+            new String[]{'nambiar.sara@gmail.com'}
+        );
+
+        mail.setSubject('Salesforce Email');
+
+        mail.setPlainTextBody(
+            'This email is sent using Apex.'
+        );
+
+        // Attachment
+        Messaging.EmailFileAttachment attach =
+        new Messaging.EmailFileAttachment();
+
+        attach.setFileName('demo.txt');
+
+        attach.setBody(
+            Blob.valueOf('Hello This Is Attachment File')
+        );
+
+        mail.setFileAttachments(
+            new Messaging.EmailFileAttachment[]{attach}
+        );
+
+        Messaging.sendEmail(
+            new Messaging.SingleEmailMessage[]{mail}
+        );
+
+        System.debug('Email Sent Successfully');
+    }
+}
+
+Go to Developer Console -> File -> New -> Apex Class paste this and then call EmailSender.sendMail(); in execute anonymous window in debug
