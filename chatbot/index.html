@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Chatbot Practical</title>
+        <link rel = "stylesheet" href = "style.css">
+    </head>
+    <body>
+        <header>
+            <h1> PICT College</h1>
+            <p> SCTR's Pune Institute of Computer Technology</p>
+        </header>
+        <section>
+            <h2>About Us</h2>
+            <p> PICT College is a leading institution for computer technology education in Pune, India. We are dedicated to providing students with the skills and knowledge they need to succeed in the technology industry.</p>
+            <h3>Our Mission</h3>
+            <p> Our mission is to provide students with the skills and knowledge they need to succeed in the technology industry.</p>
+            <h3>Our Vision</h3>
+            <p> Our vision is to be a leading institution for computer technology education in Pune, India.</p>
+            <h3>Our Values</h3>
+            <p> Our values are integrity, excellence, and innovation.</p>
+        </section>
+        <section>
+            <h2> Branch Details</h2>
+            <ul>
+                <li> Computer Engineering</li>
+                <li> Information Technology</li>
+                <li> Electronics and Telecommunication Engineering</li>
+                <li> Artificial Intelligence and Data Science</li>
+                <li> Electronics and Computer Engineering</li>
+            </ul>
+        </section>
+        <section>
+            <h2> Admissions Open 2026</h2>
+            <p> We are now accepting applications for the 2026 academic year. Please fill out the application form to apply.</p>
+        </section>
+        <section>
+            <h2> Contact Us</h2>
+            <p> Email: contact@pict.edu</p>
+            <p> Phone: +91 9876543210</p>
+        </section>
+        <button id = "chatButton" onclick = "toggleChat()"> Chat With Us</button>
+        <div id = "chatContainer" class = "chat-container">
+            <div id = "chatHeader" class = "chat-header">
+                Admissions Help Bot
+            </div>
+            <div id = "chatBox" class = "chat-box">
+                <div class = "bot-message">
+                    Bot: Hello! How can I help you today?
+                </div>
+            </div>
+            <div class = "input-area">
+                <input type = "text" id = "userInput" placeholder = "Type your message here...">
+                <button onclick = "sendMessage()"> Send </button>
+            </div>
+        </div>
+        <script src = "script.js"></script>
+    </body>
+</html>
