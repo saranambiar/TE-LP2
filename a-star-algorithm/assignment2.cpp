@@ -13,8 +13,7 @@ class Puzzle {
         int x, y;
         int g, h;
 
-        // For Priority Queue
-        bool operator<(const Node& other) const {
+        bool operator<(const Node& other) const { //priority queue - reverse order
             return (g + h) > (other.g + other.h);
         }
     };
@@ -27,21 +26,14 @@ class Puzzle {
 
 public:
 
-    // Heuristic Function (Manhattan Distance)
-    int heuristic(vector<vector<int>> &mat) {
-
+    int heuristic(vector<vector<int>> &mat) { // manhattan distance
         int h = 0;
-
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
-
                 if(mat[i][j] != 0) {
-
                     int val = mat[i][j];
-
                     int targetX = (val - 1) / 3;
                     int targetY = (val - 1) % 3;
-
                     h += abs(i - targetX) + abs(j - targetY);
                 }
             }
@@ -50,23 +42,17 @@ public:
         return h;
     }
 
-    // Convert Matrix to String
     string matrixToString(vector<vector<int>> &mat) {
-
         string s = "";
-
         for(auto row : mat) {
             for(auto val : row) {
                 s += to_string(val);
             }
         }
-
         return s;
     }
 
-    // Print Puzzle
     void print(vector<vector<int>> &mat) {
-
         for(auto row : mat) {
             for(auto val : row) {
                 cout << val << " ";
@@ -75,12 +61,9 @@ public:
         }
     }
 
-    // Solve Function
     void solve(vector<vector<int>> start, int x, int y) {
-
         priority_queue<Node> pq;
         set<string> visited;
-
         Node root;
 
         root.mat = start;
@@ -99,11 +82,8 @@ public:
             Node current = pq.top();
             pq.pop();
 
-            // Convert current state to string
-            string state = matrixToString(current.mat);
-
-            // Skip if already visited
-            if(visited.find(state) != visited.end()) {
+            string state = matrixToString(current.mat); // convert current state to string
+            if(visited.find(state) != visited.end()) { //skip if visited
                 continue;
             }
 
@@ -116,28 +96,17 @@ public:
             cout << "h(n) = " << current.h << endl;
             cout << "f(n) = " << current.g + current.h << endl;
 
-            // Goal Check
             if(current.h == 0) {
-
                 cout << "\nGoal State Reached!\n";
                 return;
             }
 
-            // Generate Possible Moves
             for(int i = 0; i < 4; i++) {
-
                 int newX = current.x + row[i];
                 int newY = current.y + col[i];
-
-                // Boundary Check
-                if(newX >= 0 && newX < 3 &&
-                   newY >= 0 && newY < 3) {
-
+                if(newX >= 0 && newX < 3 && newY >= 0 && newY < 3) {
                     Node child = current;
-
-                    // Move blank tile
-                    swap(child.mat[current.x][current.y],
-                         child.mat[newX][newY]);
+                    swap(child.mat[current.x][current.y], child.mat[newX][newY]); // swap blank tile
 
                     child.x = newX;
                     child.y = newY;
@@ -145,14 +114,10 @@ public:
                     child.g = current.g + 1;
                     child.h = heuristic(child.mat);
 
-                    // Push only if not visited
-                    string childState =
-                        matrixToString(child.mat);
+                    string childState = matrixToString(child.mat); // push if not visited
 
-                    if(visited.find(childState)
-                        == visited.end()) {
-
-                        pq.push(child);
+                    if(visited.find(childState) == visited.end()) {
+                        pq.push(child); // push child node
                     }
                 }
             }
