@@ -1,0 +1,65 @@
+<aura:component
+    controller="EmployeeController"
+    implements="flexipage:availableForAllPageTypes,
+                force:appHostable"
+    access="global">
+
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="empId" type="Integer"/>
+    <aura:attribute name="salary" type="Decimal"/>
+    <aura:attribute name="email" type="String"/>
+    <aura:attribute name="department" type="String"/>
+    <aura:attribute name="joiningDate" type="Date"/>
+
+    <lightning:card title="Employee Management System">
+
+        <div class="slds-p-around_medium">
+
+            <lightning:input
+                label="Employee Name"
+                value="{!v.name}"/>
+
+            <lightning:input
+                type="number"
+                label="Employee ID"
+                value="{!v.empId}"/>
+
+            <lightning:input
+                type="number"
+                label="Salary"
+                value="{!v.salary}"/>
+
+            <lightning:input
+                type="email"
+                label="Email"
+                value="{!v.email}"/>
+
+            <lightning:select
+                label="Department"
+                value="{!v.department}">
+
+                <option value="">--Select--</option>
+                <option value="HR">HR</option>
+                <option value="IT">IT</option>
+                <option value="Finance">Finance</option>
+                <option value="Marketing">Marketing</option>
+
+            </lightning:select>
+
+            <lightning:input
+                type="date"
+                label="Joining Date"
+                value="{!v.joiningDate}"/>
+
+            <br/>
+
+            <lightning:button
+                label="Save Employee"
+                variant="brand"
+                onclick="{!c.saveEmployee}"/>
+
+        </div>
+
+    </lightning:card>
+
+</aura:component>

@@ -1,0 +1,29 @@
+public class StudentController {
+    public Student__c stu {get; set;}
+    public StudentController() {
+        stu = new Student__c();
+    }
+    public void saveStudent() {
+        insert stu;
+        stu = new Student__c();
+    }
+    public List<Student__c> getStudents() {
+        return [SELECT Id, Name, Roll_No__c, Class__c, Mobile_No__c
+                FROM Student__c];
+    }
+    public void editStudent() {
+        String studentId = ApexPages.currentPage().getParameters().get('sid');
+        stu = [SELECT Id, Name, Roll_No__c, Class__c, Mobile_No__c
+               FROM Student__c
+               WHERE Id = :studentId];
+    }
+    public void updateStudent() {
+        update stu;
+        stu = new Student__c();
+    }
+    public void deleteStudent() {
+        String studentId = ApexPages.currentPage().getParameters().get('sid');
+        Student__c s = [SELECT Id FROM Student__c WHERE Id = :studentId];
+        delete s;
+    }
+}
