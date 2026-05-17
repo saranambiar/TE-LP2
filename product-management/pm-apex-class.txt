@@ -1,0 +1,59 @@
+public class ProductController {
+
+    public Product__c pro {get; set;}
+
+    public ProductController() {
+        pro = new Product__c();
+    }
+
+    // SAVE
+    public void saveProduct() {
+        insert pro;
+        pro = new Product__c();
+    }
+
+    // DISPLAY
+    public List<Product__c> getProducts() {
+
+        return [SELECT Id,
+                       Name,
+                       Serial_No__c,
+                       Manufacture_Date__c,
+                       Expiry_Date__c
+                FROM Product__c];
+    }
+
+    // EDIT
+    public void editProduct() {
+
+        String productId =
+            ApexPages.currentPage().getParameters().get('pid');
+
+        pro = [SELECT Id,
+                      Name,
+                      Serial_No__c,
+                      Manufacture_Date__c,
+                      Expiry_Date__c
+               FROM Product__c
+               WHERE Id = :productId];
+    }
+
+    // UPDATE
+    public void updateProduct() {
+
+        update pro;
+        pro = new Product__c();
+    }
+
+    // DELETE
+    public void deleteProduct() {
+
+        String productId =
+            ApexPages.currentPage().getParameters().get('pid');
+
+        Product__c p =
+            [SELECT Id FROM Product__c WHERE Id = :productId];
+
+        delete p;
+    }
+}

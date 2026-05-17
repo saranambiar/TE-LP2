@@ -1,0 +1,39 @@
+public class CustomerManager{
+public static void addCustomer(Integer id, String name, String email, Date birthdate, String department)
+{
+Customer__c cust = new Customer__c();
+cust.Emp_ID__c = id;
+cust.Emp_Name__c = name;
+cust.Email__c = email;
+cust.Birth_Date__c = birthdate;
+cust.Department__c = department;
+insert cust;
+System.debug('Employee inserted successfully!');
+}
+public static void viewCustomers(){
+List<Customer__c> custList = [
+SELECT Emp_ID__c, Emp_Name__c, Email__c, Birth_Date__c, Department__c
+FROM Customer__c];
+for (Customer__c cust : custList){
+System.debug('ID: ' + cust.Emp_ID__c + ', Name: ' + cust.Emp_Name__c + ', Email: ' + cust.Email__c 
++ ', Birth date: ' + cust.Birth_Date__c + ', Department: ' + cust.Department__c);
+}
+}
+public static void updateCustomer(Integer id, String newDept){
+Customer__c cust = [SELECT Id, Department__c
+FROM Customer__c
+WHERE Emp_ID__c = :id
+LIMIT 1];
+cust.Department__c = newDept;
+update cust;
+System.debug('Customer updated successfully!');
+}
+public static void deleteCustomer(Integer id){
+Customer__c cust = [SELECT Id
+FROM Customer__c
+WHERE Emp_ID__c = :id
+LIMIT 1];
+delete cust;
+System.debug('Customer deleted successfully!');
+}
+}

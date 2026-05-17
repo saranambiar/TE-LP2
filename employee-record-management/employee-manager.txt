@@ -1,0 +1,62 @@
+public class EmployeeManager {
+    public static void addEmployee(Integer id, String name, String email, Date birthDate,String dept) {
+        Employee__c emp = new Employee__c();
+
+        emp.Emp_ID__c = id;
+        emp.Name__c = name;
+        emp.Email__c = email;
+        emp.Birth_Date__c = birthDate;
+        emp.Department__c = dept;
+
+        insert emp;
+
+        System.debug('Employee Added Successfully');
+    }
+
+    public static void viewEmployees() {
+
+        List<Employee__c> empList =
+        [SELECT Emp_ID__c, Name__c,Email__c, Birth_Date__c, Department__c
+        FROM Employee__c];
+
+        for(Employee__c emp : empList) {
+
+            System.debug(
+                'ID: ' + emp.Emp_ID__c +
+                ' Name: ' + emp.Name__c +
+                ' Email: ' + emp.Email__c +
+                ' Birth Date: ' + emp.Birth_Date__c +
+                ' Department: ' + emp.Department__c
+            );
+        }
+    }
+
+    public static void updateEmployee(Integer id,
+                                      String newDept) {
+
+        Employee__c emp =
+        [SELECT Id, Department__c
+        FROM Employee__c
+        WHERE Emp_ID__c = :id
+        LIMIT 1];
+
+        emp.Department__c = newDept;
+
+        update emp;
+
+        System.debug('Employee Updated Successfully');
+    }
+
+    public static void deleteEmployee(Integer id) {
+
+        Employee__c emp =
+        [SELECT Id
+        FROM Employee__c
+        WHERE Emp_ID__c = :id
+        LIMIT 1];
+
+        delete emp;
+
+        System.debug('Employee Deleted Successfully');
+    }
+}
