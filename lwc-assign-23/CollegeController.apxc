@@ -1,0 +1,84 @@
+public with sharing class CollegeController {
+
+    @AuraEnabled
+    public static String saveStudent(
+        String name,
+        Integer rollNo,
+        Decimal marks,
+        String email
+    ) {
+
+        try {
+
+            StudentOne__c stu = new StudentOne__c();
+
+            stu.Name = name;
+            stu.Roll_Number__c = rollNo;
+            stu.Marks__c = marks;
+            stu.Email__c = email;
+
+            insert stu;
+
+            return 'Student Saved Successfully';
+
+        } catch(Exception e) {
+
+            return e.getMessage();
+        }
+    }
+
+    @AuraEnabled
+    public static String saveFaculty(
+        String name,
+        Integer facultyId,
+        Decimal salary,
+        String email,
+        String department,
+        Date joiningDate
+    ) {
+
+        try {
+
+            List<FacultyOne__c> existing = [
+
+                SELECT Id
+                FROM FacultyOne__c
+                WHERE Faculty_ID__c = :facultyId
+                LIMIT 1
+            ];
+
+            if(existing.size() > 0) {
+
+                return 'Faculty ID already exists';
+            }
+
+            FacultyOne__c fac = new FacultyOne__c();
+
+            fac.Name = name;
+            fac.Faculty_ID__c = facultyId;
+            fac.Salary__c = salary;
+            fac.Email__c = email;
+            fac.Department__c = department;
+            fac.Joining_Date__c = joiningDate;
+
+            insert fac;
+
+            return 'Faculty Saved Successfully';
+
+        } catch(Exception e) {
+
+            return e.getMessage();
+        }
+    }
+}
+
+1. Create StudentOne object → fields: Roll_Number(Number), Marks(Number), Email(Email)
+2. Create FacultyOne object → fields: Faculty_ID(Number), Salary(Number), Email(Email), Department(Text), Joining_Date(Date)
+3. Open Developer Console → create Apex Class: CollegeController → paste Apex code
+4. Create Lightning Component: CollegeForm → check Lightning Tab → paste cmp code
+5. Open CollegeFormController.js → paste JS controller code
+6. Open CollegeFormHelper.js → paste helper code
+7. Create Lightning Application: CollegeApp → paste app code
+8. Save ALL files using CTRL + SHIFT + S
+9. Run application using: /c/CollegeApp.app
+10. Validations: student name not blank, roll > 0, marks 0–100, faculty name min 3 chars, unique ID, salary 10000–500000, department required, joining date not future

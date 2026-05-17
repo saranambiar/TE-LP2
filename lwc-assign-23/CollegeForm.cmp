@@ -1,0 +1,113 @@
+<aura:component
+    controller="CollegeController"
+    implements="flexipage:availableForAllPageTypes,force:appHostable"
+    access="global">
+
+    <!-- Student Attributes -->
+
+    <aura:attribute name="sname" type="String"/>
+    <aura:attribute name="rollNo" type="Integer"/>
+    <aura:attribute name="marks" type="Decimal"/>
+    <aura:attribute name="semail" type="String"/>
+
+    <!-- Faculty Attributes -->
+
+    <aura:attribute name="fname" type="String"/>
+    <aura:attribute name="facultyId" type="Integer"/>
+    <aura:attribute name="salary" type="Decimal"/>
+    <aura:attribute name="femail" type="String"/>
+    <aura:attribute name="department" type="String"/>
+    <aura:attribute name="joiningDate" type="Date"/>
+
+    <!-- Student Form -->
+
+    <lightning:card title="Student Management">
+
+        <div class="slds-p-around_medium">
+
+            <lightning:input
+                label="Student Name"
+                value="{!v.sname}"/>
+
+            <lightning:input
+                type="number"
+                label="Roll Number"
+                value="{!v.rollNo}"/>
+
+            <lightning:input
+                type="number"
+                label="Marks"
+                value="{!v.marks}"/>
+
+            <lightning:input
+                type="email"
+                label="Email"
+                value="{!v.semail}"/>
+
+            <br/>
+
+            <lightning:button
+                label="Save Student"
+                variant="brand"
+                onclick="{!c.saveStudent}"/>
+
+        </div>
+
+    </lightning:card>
+
+    <br/>
+
+    <!-- Faculty Form -->
+
+    <lightning:card title="Faculty Management">
+
+        <div class="slds-p-around_medium">
+
+            <lightning:input
+                label="Faculty Name"
+                value="{!v.fname}"/>
+
+            <lightning:input
+                type="number"
+                label="Faculty ID"
+                value="{!v.facultyId}"/>
+
+            <lightning:input
+                type="number"
+                label="Salary"
+                value="{!v.salary}"/>
+
+            <lightning:input
+                type="email"
+                label="Email"
+                value="{!v.femail}"/>
+
+            <lightning:select
+                label="Department"
+                value="{!v.department}">
+
+                <option value="">--Select--</option>
+                <option value="IT">IT</option>
+                <option value="HR">HR</option>
+                <option value="Finance">Finance</option>
+                <option value="Marketing">Marketing</option>
+
+            </lightning:select>
+
+            <lightning:input
+                type="date"
+                label="Joining Date"
+                value="{!v.joiningDate}"/>
+
+            <br/>
+
+            <lightning:button
+                label="Save Faculty"
+                variant="brand"
+                onclick="{!c.saveFaculty}"/>
+
+        </div>
+
+    </lightning:card>
+
+</aura:component>
